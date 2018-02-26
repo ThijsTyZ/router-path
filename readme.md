@@ -1,0 +1,1 @@
+Utility to create router paths from a template and replaces the params. Design for, but not limited to, React-router
