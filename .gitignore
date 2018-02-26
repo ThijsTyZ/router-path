@@ -1,12 +1,6 @@
-## copy to .npmignore
-.DS_Store
+# copy to .npmignore
 .idea
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-node_modules/
-.npm
-.eslintcache
-/coverage/
-/.nyc_output/
-/tmp/
+node_modules
+
+# only ignore in git
+lib
