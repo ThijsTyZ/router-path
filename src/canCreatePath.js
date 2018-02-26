@@ -1,3 +1,5 @@
+import createPath from './createPath';
+
 /**
  * Checks if a path can be created from a template with the given params.
  *
@@ -7,7 +9,7 @@
  */
 export default function canCreatePath(template, params = {}) {
 	try {
-		createPath(path, params);
+		createPath(template, params);
 		return true;
 	} catch (error) {
 		return false;
