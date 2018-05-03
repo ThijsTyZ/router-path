@@ -38,7 +38,7 @@ export default function createPath (template, params = {}) {
 
 		// do we still have params left?
 		.replace(/:(\w+)/g, (match, param) => {
-			throw new Error(`Param "${param}" is missing in params (${JSON.stringify(params)}), needed for '${path}'`);
+			throw new Error(`Param "${param}" is missing in params (${JSON.stringify(params)}), needed for '${template}'`);
 		})
 
 		// replace temporary brackets with real brackets
