@@ -6,7 +6,7 @@
  * @param template The configured path template (e.g. /foo/:bar or /user(/:id))
  * @param params The param values that is used to replace the params in the template (e.g. { bar: 'baz' }
  */
-export default function createPath (template, params = {}) {
+export default function createPath (template: string, params?: {[key: string]: string | number}) {
 	// Match text within parenthesis that are no variables (does not start with ":")
 	const PARENTHESIZED_CONST = /\(([^:\()]+?)\)/g;
 
@@ -17,7 +17,7 @@ export default function createPath (template, params = {}) {
 	return template
 		// first replace all params
 		.replace(/:(\w+)/g, (match, param) =>
-			(typeof params[param] !== 'undefined' ?
+			(params && typeof params[param] !== 'undefined' ?
 				`${params[param]}`
 					// temporary replace brackets to avoid conflicts
 					.replace(/\(/g, OPEN_BRACKET)
@@ -28,7 +28,7 @@ export default function createPath (template, params = {}) {
 		// remove parenthesis for resolved optional parts
 		.replace(/.+/g, (temp) => {
 			while (PARENTHESIZED_CONST.test(temp)) {
-				temp = temp.replace(PARENTHESIZED_CONST, (match, part) => part);
+				temp = temp.replace(PARENTHESIZED_CONST, (_match, part) => part);
 			}
 			return temp;
 		})
@@ -37,7 +37,7 @@ export default function createPath (template, params = {}) {
 		.replace(/\(.+?\)/g, () => '')
 
 		// do we still have params left?
-		.replace(/:(\w+)/g, (match, param) => {
+		.replace(/:(\w+)/g, (_match, param) => {
 			throw new Error(`Param "${param}" is missing in params (${JSON.stringify(params)}), needed for '${template}'`);
 		})
 

@@ -7,7 +7,7 @@ import createPath from './createPath';
  * @param params The param values that is used to replace the params in the template (e.g. { bar: 'baz' }
  * @returns {boolean} return true if a path can be created, otherwise false
  */
-export default function canCreatePath(template, params = {}) {
+export default function canCreatePath(template: string, params?: {[key: string]: string | number}) {
 	try {
 		createPath(template, params);
 		return true;

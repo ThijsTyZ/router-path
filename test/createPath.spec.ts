@@ -32,5 +32,6 @@ describe('createPath', () => {
 
 	it('should throw an error', () => {
 		assert.throws(() => createPath('user/:id/'));
+		assert.throws(() => createPath('user/:id/test'));
 	});
 });
