@@ -1,6 +1,6 @@
 {
   "name": "router-path",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Utility to create router paths from a template and replaces the params.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
