@@ -28,6 +28,24 @@ describe('createPath', () => {
 		assert.equal(createPath('user/:id/', { id: '(id)' }), 'user/(id)/');
 		assert.equal(createPath('user/:id/:slug', { id: '(id)', slug: ('(slug)') }), 'user/(id)/(slug)');
 		assert.equal(createPath('/(shop(/:category))', { category: 'prints' }), '/shop/prints');
+		assert.equal(createPath('to/page(/:pathParam1)(/:pathParam2)', ), 'to/page');
+
+
+		assert.equal(createPath('user/:id/:slug?', { id: 1, slug: 'john-do' }), 'user/1/john-do');
+		assert.equal(createPath('user/:id/:slug?/', { id: 1, slug: 'john-do' }), 'user/1/john-do/');
+		assert.equal(createPath('user/:id/:slug?', { id: 1 }), 'user/1');
+		assert.equal(createPath('user/:id/:slug?/:foo?', { id: 1 }), 'user/1');
+		assert.equal(createPath('user/:id/:slug?/:foo?', { id: 1, slug: 'slug', foo: 'bar' }), 'user/1/slug/bar');
+		assert.equal(createPath('user/:id/:slug?/:foo?', { id: 1, foo: 'bar' }), 'user/1');
+		assert.equal(createPath('user/:id/:slug?/:foo?', { id: 1, foo: 'bar' }), 'user/1');
+		assert.equal(createPath(':slug?/:foo?'), '');
+		assert.equal(createPath('/:slug?/:foo?'), '');
+		assert.equal(createPath('user/:id/:slug?/x/:foo?', { id: 1, slug: 'a', foo: 'bar' }), 'user/1/a/x/bar');
+		assert.equal(createPath('user/:id/:slug?/x/:foo?', { id: 1, slug: 'a' }), 'user/1/a/x');
+		assert.equal(createPath('user/:id/', { id: '(id)' }), 'user/(id)/');
+		assert.equal(createPath('user/:id/:slug', { id: '(id)', slug: ('(slug)') }), 'user/(id)/(slug)');
+		assert.equal(createPath('/shop/:category?', { category: 'prints' }), '/shop/prints');
+		assert.equal(createPath('to/page/:pathParam1?/:pathParam2?', ), 'to/page');
 	});
 
 	it('should throw an error', () => {

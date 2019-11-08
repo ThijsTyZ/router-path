@@ -6,7 +6,7 @@
  * @param template The configured path template (e.g. /foo/:bar or /user(/:id))
  * @param params The param values that is used to replace the params in the template (e.g. { bar: 'baz' }
  */
-export default function createPath (template: string, params?: {[key: string]: string | number}) {
+export default function createPath (template: string, params?: {[key: string]: any}):string {
 	// Match text within parenthesis that are no variables (does not start with ":")
 	const PARENTHESIZED_CONST = /\(([^:\()]+?)\)/g;
 
@@ -16,7 +16,7 @@ export default function createPath (template: string, params?: {[key: string]: s
 
 	return template
 		// first replace all params
-		.replace(/:(\w+)/g, (match, param) =>
+		.replace(/:(\w+)\??/g, (match, param) =>
 			(params && typeof params[param] !== 'undefined' ?
 				`${params[param]}`
 					// temporary replace brackets to avoid conflicts
@@ -34,7 +34,8 @@ export default function createPath (template: string, params?: {[key: string]: s
 		})
 
 		// remove the other (unresolved) optional parts
-		.replace(/\(.+?\)/g, () => '')
+		.replace(/\(.+?\)/g, '')
+		.replace(/\/?\:\w+\?.*/g, '')
 
 		// do we still have params left?
 		.replace(/:(\w+)/g, (_match, param) => {
