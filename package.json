@@ -1,6 +1,6 @@
 {
   "name": "router-path",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Utility to create router paths from a template and replaces the params.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -9,7 +9,7 @@
     "build": "tsc"
   },
   "author": "Thijs Broerse",
-  "homepage": "https://github.com/ThijsTyZ",
+  "homepage": "https://github.com/ThijsTyZ/router-path",
   "license": "ISC",
   "keywords": [
     "router",
