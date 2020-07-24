@@ -38,7 +38,7 @@ export default function createPath (template: string, params?: {[key: string]: a
 		.replace(/\/?\:\w+\?.*/g, '')
 
 		// do we still have params left?
-		.replace(/:(\w+)/g, (_match, param) => {
+		.replace(/\/:(\w+)/g, (_match, param) => {
 			throw new Error(`Param "${param}" is missing in params (${JSON.stringify(params)}), needed for '${template}'`);
 		})
 

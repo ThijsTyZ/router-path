@@ -46,6 +46,8 @@ describe('createPath', () => {
 		assert.equal(createPath('user/:id/:slug', { id: '(id)', slug: ('(slug)') }), 'user/(id)/(slug)');
 		assert.equal(createPath('/shop/:category?', { category: 'prints' }), '/shop/prints');
 		assert.equal(createPath('to/page/:pathParam1?/:pathParam2?', ), 'to/page');
+
+		assert.equal(createPath('/:x/:d', { d: '2020-08-06T00:00:00_2020-08-10T00:00:00',	x: 'foo' } ), '/foo/2020-08-06T00:00:00_2020-08-10T00:00:00');
 	});
 
 	it('should throw an error', () => {
