@@ -16,14 +16,17 @@ export default function createPath (template: string, params?: {[key: string]: a
 
 	return template
 		// first replace all params
-		.replace(/:(\w+)\??/g, (match, param) =>
-			(params && typeof params[param] !== 'undefined' ?
+		.replace(/:(\w+)\??|\[(\w+)\]/g, (match, ...groups) => {
+			const param = groups.find((param) => typeof param !== 'undefined');
+
+			return (params && typeof params[param] !== 'undefined' ?
 				`${params[param]}`
 					// temporary replace brackets to avoid conflicts
 					.replace(/\(/g, OPEN_BRACKET)
 					.replace(/\)/g, CLOSE_BRACKET)
 				:
-				match))
+				match)
+		})
 
 		// remove parenthesis for resolved optional parts
 		.replace(/.+/g, (temp) => {
@@ -38,7 +41,7 @@ export default function createPath (template: string, params?: {[key: string]: a
 		.replace(/\/?\:\w+\?.*/g, '')
 
 		// do we still have params left?
-		.replace(/\/:(\w+)/g, (_match, param) => {
+		.replace(/\/:(\w+)|\[\w+\]/g, (_match, param) => {
 			throw new Error(`Param "${param}" is missing in params (${JSON.stringify(params)}), needed for '${template}'`);
 		})
 
