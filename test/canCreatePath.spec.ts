@@ -32,5 +32,6 @@ describe('canCreatePath', () => {
 
 	it('should return false', () => {
 		assert.strictEqual(canCreatePath('user/:id/'), false);
+		assert.strictEqual(canCreatePath('user/[id]/'), false);
 	});
 });
